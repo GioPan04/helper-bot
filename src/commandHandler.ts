@@ -4,7 +4,7 @@ import help from './commands/help';
 import vortex from './commands/vortex';
 
 function handle(msg: Message) {
-    let cmd = msg.content.substring(1);
+    let cmd = msg.content.substring(1).split(' ')[0];
     switch (cmd) {
         case 'ping':
             ping(msg);
