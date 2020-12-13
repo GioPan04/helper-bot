@@ -1,9 +1,5 @@
 import { Message } from 'discord.js';
 import commands from './commands';
-import ping from './commands/ping';
-import help from './commands/help';
-import vortex from './commands/vortex';
-import kick from "./commands/kick";
 
 require('dotenv').config();
 
