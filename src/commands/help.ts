@@ -9,7 +9,7 @@ let getHelpEmbed = (): Discord.MessageEmbed => {
     const helpEmbed = new Discord.MessageEmbed()
         .setColor('#FF0000')
         .setAuthor("Helper Bot's commands")
-        .setDescription(`Use ${process.env.CMD_PREFIX} as prefix`)
+        .setDescription(`Use ${process.env.CMD_PREFIX}help <command name> to see how to use a specific command`)
         .addFields(commandsField);
 
     getHelpEmbed = () => helpEmbed;
