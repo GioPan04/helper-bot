@@ -3,20 +3,32 @@ import { BotCommand } from '../models/Command';
 import commands from '../commands';
 require('dotenv').config();
 
-const commandsField = commands.map(cmd => cmd.toField());
+let getHelpEmbed = (): Discord.MessageEmbed => {
+    const commandsField = commands.map(cmd => cmd.toField());
 
-const helpEmbed = new Discord.MessageEmbed()
-    .setColor('#FF0000')
-    .setAuthor("Helper Bot's commands")
-    .setDescription(`Use ${process.env.CMD_PREFIX} as prefix`)
-    .addFields(commandsField);
+    const helpEmbed = new Discord.MessageEmbed()
+        .setColor('#FF0000')
+        .setAuthor("Helper Bot's commands")
+        .setDescription(`Use ${process.env.CMD_PREFIX} as prefix`)
+        .addFields(commandsField);
+
+    getHelpEmbed = () => helpEmbed;
+
+    return getHelpEmbed();    
+};
+
+const helpCmd = new BotCommand('help', 'Shows this message', executor, [{name: 'command'}]); 
+
+function executor(msg: Message, args: string[]) {
     
-
-const helpCmd = new BotCommand('help', 'Shows this message', executor); 
-
-function executor(msg: Message) {
+    if(args.length === 1) {
+        let cmd = commands.find(c => c.name === args[0])
+        if(cmd === undefined) return msg.channel.send(`The ${args[1]} command doesn't exists! Use ${process.env.CMD_PREFIX}help to get a list of all avaible commands`);
+        return msg.channel.send(cmd.generateUsage());
+    }
+    
     msg.channel.send("Here's a list of all commands avaible:");
-    msg.channel.send(helpEmbed);
+    msg.channel.send(getHelpEmbed());
 }
 
 export default helpCmd;

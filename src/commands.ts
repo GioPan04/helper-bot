@@ -7,7 +7,7 @@ import banCmd from "./commands/ban";
 
 const commands: BotCommand[] = [
     pingCmd,
-    //helpCmd,
+    helpCmd,
     vortexCmd,
     kickCmd,
     banCmd,

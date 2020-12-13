@@ -10,7 +10,7 @@ export class BotCommand {
         public args: BotCommandArgument[] = []
     ) {}
 
-    execute(msg: Message) {
+    public execute(msg: Message) {
         let args = msg.content.split(' ').slice(1);
         let requiredArguments = this.args.filter(a => a.required === true);
         if(args.length < requiredArguments.length) return msg.channel.send(this.generateUsage());
