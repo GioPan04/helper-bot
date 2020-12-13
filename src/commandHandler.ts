@@ -1,27 +1,22 @@
 import { Message } from 'discord.js';
+import commands from './commands';
 import ping from './commands/ping';
 import help from './commands/help';
 import vortex from './commands/vortex';
 import kick from "./commands/kick";
 
+require('dotenv').config();
+
 function handle(msg: Message) {
     let cmd = msg.content.substring(1).split(' ')[0];
-    switch (cmd) {
-        case 'ping':
-            ping(msg);
-            break;
-        case 'help':
-            help(msg);
-            break;
-        case 'vortex':
-            vortex(msg);
-            break;
-        case 'kick':
-            kick.execute(msg);
-            break;
-        default:
-            msg.channel.send(`Sorry ${msg.author.toString()}, that command does not exist!`);
-            break;
+    let command = commands.find((c) => c.name === cmd);
+
+    if(command === undefined) return msg.channel.send(`Sorry ${msg.author.toString()}, that command does not exist!\nUse ${process.env.CMD_PREFIX}help to get a list of all commands`);
+
+    try {
+        command.execute(msg);
+    } catch (e) {
+        msg.channel.send("Uh oh!\nThe commands exited with an error and I can't give you a response. Please open a issue [at the official repo](https://github.com/GioPan04/helper-bot/issues/new)");
     }
 }
 
