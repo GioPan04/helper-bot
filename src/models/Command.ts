@@ -6,14 +6,14 @@ export class BotCommand {
     constructor(
         public name: string,
         public description: string,
-        public executor: (msg: Message) => void | Promise<Message | undefined>,
+        public executor: (msg: Message, args: string[]) => void | Promise<Message | undefined>,
         public args: string[] = []
     ) {}
 
     execute(msg: Message) {
         let args = msg.content.split(' ').slice(1);
         if(args.length < this.args.length) return msg.channel.send(this.generateUsage());
-        this.executor(msg);
+        this.executor(msg, args);
     }
 
     public generateUsage() {
