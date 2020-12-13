@@ -6,7 +6,7 @@ export class BotCommand {
     constructor(
         public name: string,
         public description: string,
-        public executor: (msg: Message, args: string[]) => void | Promise<Message | undefined>,
+        public executor: (msg: Message, args: string[]) => void | any,
         public args: BotCommandArgument[] = []
     ) {}
 
