@@ -2,7 +2,7 @@ import {Message} from 'discord.js';
 import { BotCommand } from '../models/Command';
 import userParser from '../utils/userParser';
 
-const banCmd = new BotCommand('kick', 'Kick a user from the server', executor, ['user', 'reason']);
+const banCmd = new BotCommand('ban', 'Ban a user from the server', executor, ['user', 'reason']);
 
 function executor(msg:Message, args: string[]) {
     let user = userParser(args[0], msg.guild);
