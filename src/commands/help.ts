@@ -7,7 +7,8 @@ const helpEmbed = new Discord.MessageEmbed()
     .setDescription(`Use ${process.env.CMD_PREFIX} as prefix`)
     .addFields(
         { name: 'ping', value: 'Ping the bot' },
-        { name: 'help', value: 'Shows this message' }
+        { name: 'help', value: 'Shows this message' },
+        { name: 'vortex', value: 'Move a user between multiple voice channels' },
     );
 
 export default function (msg: Message) {
