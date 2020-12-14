@@ -2,7 +2,14 @@ import {GuildChannel, Message} from 'discord.js';
 import { BotCommand } from '../models/Command';
 import userParser from '../utils/userParser';
 
-const vortexCmd = new BotCommand('vortex', 'Quickly move a user between two random voice channels', executor, [{name: 'user', required: true}]); 
+const vortexCmd = new BotCommand({
+    name: 'vortex',
+    description: 'Quickly move a user between two random voice channels',
+    executor: executor,
+    args: [
+        {name: 'user', required: true}
+    ]
+}); 
 
 async function executor(msg: Message, args: string[]) {
     

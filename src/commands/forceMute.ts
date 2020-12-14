@@ -2,7 +2,14 @@ import { Message } from "discord.js";
 import { BotCommand } from "../models/Command";
 import userParser from "../utils/userParser";
 
-const muteCmd = new BotCommand('mute', 'Force a user to be muted in a voice channel', executor, [{name: 'user', required: true}]);
+const muteCmd = new BotCommand({
+    name: 'mute',
+    description: 'Force a user to be muted in a voice channel',
+    executor: executor,
+    args: [
+        {name: 'user', required: true}
+    ]
+});
 
 async function executor(msg: Message, args: string[]) {
     let user = userParser(args[0], msg.guild);

@@ -17,7 +17,14 @@ let getHelpEmbed = (): Discord.MessageEmbed => {
     return getHelpEmbed();    
 };
 
-const helpCmd = new BotCommand('help', 'Shows this message', executor, [{name: 'command'}]); 
+const helpCmd = new BotCommand({
+    name: 'help',
+    description: 'Shows this message',
+    executor: executor,
+    args: [
+        { name: 'command' }
+    ]
+});
 
 function executor(msg: Message, args: string[]) {
     

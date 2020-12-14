@@ -1,16 +1,33 @@
 import {EmbedFieldData, Message} from "discord.js";
 require('dotenv').config();
 
-export class BotCommand {
+export interface IBotCommand {
+    name: string,
+    description: string,
+    executor: (msg: Message, args: string[]) => void | any;
+    requireMod?: boolean;
+    args?: BotCommandArgument[];
+}
 
-    constructor(
-        public name: string,
-        public description: string,
-        public executor: (msg: Message, args: string[]) => void | any,
-        public args: BotCommandArgument[] = []
-    ) {}
+export class BotCommand implements IBotCommand {
+
+    name: string;
+    description: string;
+    executor: (msg: Message, args: string[]) => void | any;
+    requireMod: boolean = false;
+    args: BotCommandArgument[] = [];
+
+    constructor({name, description, executor, requireMod, args}: IBotCommand) {
+        this.name = name;
+        this.description = description,
+        this.executor = executor,
+        this.requireMod = requireMod ?? false,
+        this.args = args ?? [];
+    }
 
     public execute(msg: Message) {
+        if(this.requireMod && msg.member?.roles.cache.find(r => r.name === process.env.MOD_ROLE_NAME ?? '') === undefined) return msg.channel.send(`Sorry, ${msg.author} you don't have permission to do that.`);
+
         let args = msg.content.split(' ').slice(1);
         let requiredArguments = this.args.filter(a => a.required === true);
         if(args.length < requiredArguments.length) return msg.channel.send(this.generateUsage());

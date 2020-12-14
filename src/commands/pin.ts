@@ -2,7 +2,14 @@ import { Message, TextChannel } from "discord.js";
 import { BotCommand } from "../models/Command";
 import channelParser from "../utils/channelParser";
 
-const pinCmd = new BotCommand('pin', 'Pin a message to the current channel or a specific channel', executor, [{name: 'channel'}]);
+const pinCmd = new BotCommand({
+    name: 'pin',
+    description: 'Pin a message to the current channel or a specific channel',
+    executor: executor,
+    args: [
+        { name: 'channel' }
+    ]
+});
 
 async function executor(msg: Message, args: string[]) {
     let replyedMsg = await msg.channel.messages.fetch(msg.reference?.messageID ?? '');
