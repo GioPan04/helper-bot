@@ -9,7 +9,8 @@ const kickCmd = new BotCommand({
     args: [
         {name: 'user', required: true},
         {name: 'reason'}
-    ]
+    ],
+    requireMod: true,
 });
 
 function executor(msg:Message, args: string[]) {

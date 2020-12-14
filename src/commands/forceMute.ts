@@ -8,7 +8,8 @@ const muteCmd = new BotCommand({
     executor: executor,
     args: [
         {name: 'user', required: true}
-    ]
+    ],
+    requireMod: true
 });
 
 async function executor(msg: Message, args: string[]) {

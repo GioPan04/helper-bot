@@ -8,7 +8,8 @@ const pinCmd = new BotCommand({
     executor: executor,
     args: [
         { name: 'channel' }
-    ]
+    ],
+    requireMod: true,
 });
 
 async function executor(msg: Message, args: string[]) {
