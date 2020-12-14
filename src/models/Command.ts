@@ -44,7 +44,13 @@ export class BotCommand implements IBotCommand {
     }
 
     public toField(): EmbedFieldData {
-        return {name: this.name, value: this.description};
+        let name: string;
+        if(this.requireMod) {
+            name = `${this.name} [MOD]`
+        } else {
+            name = this.name;
+        }
+        return {name: name, value: this.description};
     }
 
 }
