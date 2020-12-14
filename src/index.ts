@@ -9,7 +9,7 @@ if(process.env.DISCORD_TOKEN === undefined || process.env.DISCORD_TOKEN === '' |
 app.on('ready', () => console.log(`Logged in as ${app.user?.tag}!`));
 
 app.on('message', (message) => {
-    if(message.content.startsWith(process.env.CMD_PREFIX ?? '')) {
+    if(message.content.startsWith(process.env.CMD_PREFIX ?? '') && !message.author.bot) {
         commandHandler.handle(message);
     }
 });
