@@ -7,6 +7,7 @@ import vortexCmd from "./commands/vortex";
 import kickCmd from "./commands/kick";
 import banCmd from "./commands/ban";
 import pinCmd from "./commands/pin";
+import muteCmd from "./commands/forceMute";
 
 const commands: BotCommand[] = [
     pingCmd,
@@ -15,6 +16,7 @@ const commands: BotCommand[] = [
     kickCmd,
     banCmd,
     pinCmd,
+    muteCmd,
 ];
 
 export default commands;
