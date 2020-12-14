@@ -1,4 +1,4 @@
-import { Message, TextChannel } from "discord.js";
+import { DiscordAPIError, Message, TextChannel } from "discord.js";
 import { BotCommand } from "../models/Command";
 import channelParser from "../utils/channelParser";
 
@@ -12,8 +12,15 @@ const pinCmd = new BotCommand({
 });
 
 async function executor(msg: Message, args: string[]) {
-    let replyedMsg = await msg.channel.messages.fetch(msg.reference?.messageID ?? '');
-    if(replyedMsg === undefined) return msg.channel.send("Can't find the replyed message");
+    let replyedMsg;
+    try {
+        replyedMsg = await msg.channel.messages.fetch(msg.reference?.messageID ?? '');
+    } catch (e) {
+        if(e instanceof DiscordAPIError && e.code === 404) {
+            return msg.channel.send("You are not replying to a messege!");
+        }
+    }
+    if(replyedMsg === undefined) return msg.channel.send("You are not replying to a messege!");
     if(!replyedMsg.pinnable) return msg.channel.send(`${replyedMsg.author}'s message can't be pinned`);
     
     
