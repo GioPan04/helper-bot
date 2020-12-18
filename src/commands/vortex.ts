@@ -1,4 +1,4 @@
-import {GuildChannel, Message} from 'discord.js';
+import {DiscordAPIError, GuildChannel, Message} from 'discord.js';
 import { BotCommand } from '../models/Command';
 import userParser from '../utils/userParser';
 
@@ -46,19 +46,25 @@ async function executor(msg: Message, args: string[]) {
     }
     
     // MAKE THE VORTEX!
-    for(let i = 0; i < 9; i++) {
-        if(i % 2 === 0) {
-            await user.voice.setChannel(vortexingChannels[0]);
-        } else {
-            await user.voice.setChannel(vortexingChannels[1]);
+    try {
+        for(let i = 0; i < 9; i++) {
+            if(i % 2 === 0) {
+                await user.voice.setChannel(vortexingChannels[0]);
+            } else {
+                await user.voice.setChannel(vortexingChannels[1]);
+            }
+            
+            // Wait 100ms because Discord developers are funny and after 10 channels changes the server will wait 2 secs 
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
-
-        // Wait 100ms because Discord developers are funny and after 10 channels changes the server will wait 2 secs 
-        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Make the user back to the original channel
+        await user.voice.setChannel(originalChannelID);
+    } catch(e) {
+        /*if(e instanceof DiscordAPIError) {
+            if(e.httpStatus == 400)
+        }*/
     }
-    
-    // Make the user back to the original channel
-    await user.voice.setChannel(originalChannelID);
     
     vortexingMsg.edit(`${user} has been vortexed`);
 }

@@ -27,7 +27,6 @@ export class BotCommand implements IBotCommand {
 
     public execute(msg: Message) {
         if(this.requireMod && msg.member?.roles.cache.find(r => r.name === process.env.MOD_ROLE_NAME ?? '') === undefined) return msg.channel.send(`Sorry, ${msg.author} you don't have permission to do that.`);
-
         let args = msg.content.split(' ').slice(1);
         let requiredArguments = this.args.filter(a => a.required === true);
         if(args.length < requiredArguments.length) return msg.channel.send(this.generateUsage());

@@ -12,7 +12,7 @@ function handle(msg: Message) {
     try {
         command.execute(msg);
     } catch (e) {
-        msg.channel.send("Uh oh!\nThe commands exited with an error and I can't give you a response. Please open a issue [at the official repo](https://github.com/GioPan04/helper-bot/issues/new)");
+        msg.channel.send("Uh oh!\nThe commands exited with an error and I can't give you a response. Please open a issue at the official repo(https://github.com/GioPan04/helper-bot/issues/new)");
     }
 }
 
