@@ -5,7 +5,7 @@ require('dotenv').config();
 
 function handle(msg: Message) {
     let cmd = msg.content.substring(1).split(' ')[0].toLowerCase();
-    if(cmd === undefined) return;
+    if(cmd === '' || cmd === undefined) return;
 
     let command = commands.find((c) => c.name === cmd);
 
