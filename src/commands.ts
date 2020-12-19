@@ -8,10 +8,12 @@ import kickCmd from "./commands/kick";
 import banCmd from "./commands/ban";
 import pinCmd from "./commands/pin";
 import muteCmd from "./commands/forceMute";
+import aboutCmd from "./commands/about";
 
 const commands: BotCommand[] = [
     pingCmd,
     helpCmd,
+    aboutCmd,
     vortexCmd,
     kickCmd,
     banCmd,
