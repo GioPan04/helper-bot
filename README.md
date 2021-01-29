@@ -1,5 +1,5 @@
 # DiscordHelper
-An open source Discord bot based on Discord.js library and TypeScript.
+An open source Discord bot using Discord.js and TypeScript.
 
 __Currently under development.__
 
@@ -10,7 +10,7 @@ __Currently under development.__
 
 ## Features
 * TypeScript based
-* Open api based
+* Open API
 * Many prebuit commands
 * Fully customizable
 
@@ -26,7 +26,7 @@ __Currently under development.__
 9. Enjoy!
 
 ## Developing
-You can find a doc for the api in the [Wiki](https://github.com/GioPan04/discord-helper/wiki) tab
+You can find docs for the API in the [wiki](https://github.com/GioPan04/helper-bot/wiki).
 1. Follow the steps from 1 to 6 of the [Installing](#Installing) part
 2. Run `npm run dev`
 
