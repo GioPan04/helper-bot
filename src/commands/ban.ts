@@ -15,8 +15,8 @@ const banCmd = new BotCommand({
 
 function executor(msg:Message, args: string[]) {
     let user = userParser(args[0], msg.guild);
-    if(user === undefined) return msg.channel.send(`Can't find the user!`);
-    if(!user?.bannable) return msg.channel.send(`Can't ban ${user}!`);
+    if(!user) return msg.channel.send(`Can't find the user!`);
+    if(!user.bannable) return msg.channel.send(`Can't ban ${user}!`);
     
     user.ban({reason: args[1]});
     msg.channel.send(`${user} was banned for \`${args[1]}\``);

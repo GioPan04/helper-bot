@@ -14,8 +14,9 @@ const muteCmd = new BotCommand({
 
 async function executor(msg: Message, args: string[]) {
     let user = userParser(args[0], msg.guild);
-    if(user === undefined) return msg.channel.send(`The user can't be found!`);
-    
+    if(!user) return msg.channel.send(`The user can't be found!`);
+    if(!user.voice.channel) return msg.channel.send(`The user is not in a voice channel!`);
+
     if(user.voice.mute) {
         await user.voice.setMute(false);
         msg.channel.send(`${user} has been unmuted!`);

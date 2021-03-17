@@ -5,11 +5,11 @@ require('dotenv').config();
 
 function handle(msg: Message) {
     let cmd = msg.content.substring(1).split(' ')[0].toLowerCase();
-    if(cmd === '' || cmd === undefined) return;
+    if(!cmd) return;
 
     let command = commands.find((c) => c.name === cmd);
 
-    if(command === undefined) return msg.channel.send(`Sorry ${msg.author.toString()}, that command does not exist!\nUse ${process.env.CMD_PREFIX}help to get a list of all commands`);
+    if(!command) return msg.channel.send(`Sorry ${msg.author.toString()}, that command does not exist!\nUse ${process.env.CMD_PREFIX}help to get a list of all commands`);
 
     try {
         command.execute(msg);
