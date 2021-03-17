@@ -13,7 +13,7 @@ export class BotCommand implements IBotCommand {
 
     name: string;
     description: string;
-    executor: (msg: Message, args: string[]) => void | any;
+    executor: (msg: Message, args: string[]) => void | Promise<void> | any;
     requireMod: boolean = false;
     args: BotCommandArgument[] = [];
 
@@ -25,12 +25,18 @@ export class BotCommand implements IBotCommand {
         this.args = args ?? [];
     }
 
-    public execute(msg: Message) {
-        if(this.requireMod && msg.member?.roles.cache.find(r => r.name === process.env.MOD_ROLE_NAME ?? '') === undefined) return msg.channel.send(`Sorry, ${msg.author} you don't have permission to do that.`);
+    public async execute(msg: Message) : Promise<void> {
+        if(this.requireMod && msg.member?.roles.cache.find(r => r.name === process.env.MOD_ROLE_NAME ?? '') === undefined) {
+            msg.channel.send(`Sorry, ${msg.author} you don't have permission to do that.`);
+            return;
+        }
         let args = msg.content.split(' ').slice(1);
         let requiredArguments = this.args.filter(a => a.required === true);
-        if(args.length < requiredArguments.length) return msg.channel.send(this.generateUsage());
-        this.executor(msg, args);
+        if(args.length < requiredArguments.length) {
+            msg.channel.send(this.generateUsage());
+            return;
+        }
+        await this.executor(msg, args);
     }
 
     public generateUsage() {
