@@ -9,6 +9,7 @@ import banCmd from "./commands/ban";
 import pinCmd from "./commands/pin";
 import muteCmd from "./commands/forceMute";
 import aboutCmd from "./commands/about";
+import textMuteCmd from "./commands/textMute";
 
 const commands: BotCommand[] = [
     pingCmd,
@@ -19,6 +20,7 @@ const commands: BotCommand[] = [
     banCmd,
     pinCmd,
     muteCmd,
+    textMuteCmd,
 ];
 
 export default commands;
