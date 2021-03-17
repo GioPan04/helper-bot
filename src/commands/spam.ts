@@ -1,5 +1,6 @@
 import { Message } from 'discord.js';
 import { BotCommand } from '../models/Command';
+import sleep from '../utils/sleep';
 
 const spamCmd = new BotCommand({
     name: 'spam',
@@ -24,10 +25,6 @@ async function executor (msg: Message, args: string[]) {
         msg.channel.send(message);
         await sleep(100);
     }
-}
-
-function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default spamCmd;
