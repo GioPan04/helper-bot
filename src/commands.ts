@@ -12,6 +12,7 @@ import aboutCmd from "./commands/about";
 import textMuteCmd from "./commands/textMute";
 import warnCmd from "./commands/warn";
 import warnsCmd from "./commands/warns";
+import spamCmd from "./commands/spam";
 
 const commands: BotCommand[] = [
     pingCmd,
@@ -25,6 +26,7 @@ const commands: BotCommand[] = [
     textMuteCmd,
     warnCmd,
     warnsCmd,
+    spamCmd,
 ];
 
 export default commands;
