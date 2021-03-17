@@ -1,5 +1,6 @@
 import Discord from 'discord.js';
 import * as commandHandler from './commandHandler';
+import * as Database from "./Database";
 const app = new Discord.Client();
 require('dotenv').config();
 
@@ -13,5 +14,7 @@ app.on('message', (message) => {
         commandHandler.handle(message);
     }
 });
+
+Database.connect();
 
 app.login(process.env.DISCORD_TOKEN);
