@@ -9,17 +9,27 @@ const findAndReplceList: FindReplace[] = [
     {find: 'é', replace: 'e'},
     {find: 'í', replace: 'i'},
     {find: 'ó', replace: 'o'},
-    {find: 'ú', replace: 'u'}
+    {find: 'ú', replace: 'u'},
+];
+
+const specialChars: FindReplace[] = [
+    {find: '!', replace: ':exclamation:'},
+    {find: '?', replace: ':question:'},
 ];
 
 const numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
-export function getBigChar(char: string) {
+export function getBigChar(char: string): string | undefined {
     char = char.substring(0, 1).toLocaleLowerCase();
 
     if(char.charCodeAt(0) >= zeroCharCode && char.charCodeAt(0) <= nineCharCode) {
         char = numbers[parseInt(char)];
         return `:${char}:`;
+    }
+
+    let index: number;
+    if((index = specialChars.findIndex((fr) => fr.find === char)) != -1) {
+        return specialChars[index].replace;
     }
 
     if(char.charCodeAt(0) < aCharCode || char.charCodeAt(0) > zCharCode) {
