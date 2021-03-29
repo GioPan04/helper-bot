@@ -6,13 +6,13 @@ const clearCmd = new BotCommand({
     description: 'Clear x messages from a thread',
     executor: executor,
     args: [
-        {name: 'messages', required: false},
+        {name: 'messages', required: true},
     ],
     requireMod: true,
 });
 
 async function executor(msg:Message, args: string[]) {
-    let msgToClear = parseInt(args[0]) || 20;
+    const msgToClear = parseInt(args[0]);
     
     (msg.channel as TextChannel).bulkDelete(msgToClear, true);
 }
