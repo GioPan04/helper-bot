@@ -47,7 +47,7 @@ export default function getBigString(input: string) {
     let output = '';
     for (const char of chars) {
         if(char == ' ') {
-            output += ' ';
+            output += '   ';
         } else {
             const emoji = getBigChar(char);
             if(!emoji) {
