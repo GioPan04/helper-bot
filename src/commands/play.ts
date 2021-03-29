@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
 import { BotCommand } from '../models/Command';
-import ytdl from "ytdl-core";
+import ytdl, {validateURL} from "ytdl-core";
+import search from '../utils/ytsearcher';
 
 const playCmd = new BotCommand({
     name: 'play',
@@ -20,8 +21,23 @@ async function executor(msg: Message, args: string[]) {
         return;
     }
 
+    let url = args[0];
+
+    if(!validateURL(url)) {
+        const searchingVideoMsg = await msg.channel.send('Searching YouTube video...');
+        const videos = await search(args.join(' '));
+
+        if(!videos) {
+            searchingVideoMsg.edit('No videos found!');
+            return;
+        }
+
+        searchingVideoMsg.edit(`Found \`${videos[0].title}\``);
+        url = videos[0].link;
+    } 
+
     const voice = await msg.member.voice.channel.join();
-    const stream = voice.play(ytdl(args[0], {filter: 'audioonly'}))
+    const stream = voice.play(ytdl(url, {filter: 'audioonly'}))
     stream.on('finish', () => voice.disconnect());
     
     msg.channel.send("Playing on voice channel");
