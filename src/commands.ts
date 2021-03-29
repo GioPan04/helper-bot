@@ -14,6 +14,7 @@ import warnCmd from "./commands/warn";
 import warnsCmd from "./commands/warns";
 import spamCmd from "./commands/spam";
 import playCmd from "./commands/play";
+import searchyt from "./commands/searchyt";
 
 const commands: BotCommand[] = [
     pingCmd,
@@ -29,6 +30,7 @@ const commands: BotCommand[] = [
     warnsCmd,
     spamCmd,
     playCmd,
+    searchyt,
 ];
 
 export default commands;

@@ -10,5 +10,7 @@ declare namespace NodeJS {
         CMD_PREFIX: string;
         DISCORD_TOKEN: string;
         MOD_ROLE_NAME: string;
+
+        GOOGLE_API_KEY: string;
     }
 }
