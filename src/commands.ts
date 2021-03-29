@@ -16,6 +16,7 @@ import spamCmd from "./commands/spam";
 import playCmd from "./commands/play";
 import searchyt from "./commands/searchyt";
 import clearCmd from "./commands/clear";
+import bigTextCmd from "./commands/bigtext";
 
 const commands: BotCommand[] = [
     pingCmd,
@@ -33,6 +34,7 @@ const commands: BotCommand[] = [
     playCmd,
     searchyt,
     clearCmd,
+    bigTextCmd,
 ];
 
 export default commands;
