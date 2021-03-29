@@ -1,14 +1,8 @@
-let startCharCode = () => {
-    const res = 'a'.charCodeAt(0);
-    startCharCode = () => res;
-    return res;
-}
+const aCharCode = 97;
+const zCharCode = 122;
 
-let endCharCode = () => {
-    const res = 'z'.charCodeAt(0);
-    endCharCode = () => res;
-    return res;
-}
+const zeroCharCode = 48;
+const nineCharCode = 57;
 
 const findAndReplceList: FindReplace[] = [
     {find: 'á', replace: 'a'},
@@ -16,13 +10,22 @@ const findAndReplceList: FindReplace[] = [
     {find: 'í', replace: 'i'},
     {find: 'ó', replace: 'o'},
     {find: 'ú', replace: 'u'}
-]; 
+];
+
+const numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
 export function getBigChar(char: string) {
     char = char.substring(0, 1).toLocaleLowerCase();
-    if(char.charCodeAt(0) < startCharCode() || char.charCodeAt(0) > endCharCode()) {
+
+    if(char.charCodeAt(0) >= zeroCharCode && char.charCodeAt(0) <= nineCharCode) {
+        char = numbers[parseInt(char)];
+        return `:${char}:`;
+    }
+
+    if(char.charCodeAt(0) < aCharCode || char.charCodeAt(0) > zCharCode) {
         return undefined;
     }
+
     return `:regional_indicator_${char}:`;
 }
 
