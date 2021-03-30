@@ -51,11 +51,12 @@ export default function getBigString(input: string) {
         } else {
             const emoji = getBigChar(char);
             if(!emoji) {
-                throw Error("Not allowed char in big text");
+                throw Error("You send a text that I can't convert to an emoji!");
             }
             output += emoji;
         }
     }
+    if(output.length > 2000) throw Error("The text you sent is too long!")
     return output;
 }
 

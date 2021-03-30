@@ -16,7 +16,11 @@ function executor (msg: Message, args: string[]) {
         const output = BigTextConverter(args.join(' '));
         msg.channel.send(output);
     } catch (e) {
-        msg.channel.send("You send a text that I can't convert to an emoji!");
+        if(e instanceof Error) {
+            msg.channel.send(e.message);
+        } else {
+            throw e;
+        }
     }
 }
 
