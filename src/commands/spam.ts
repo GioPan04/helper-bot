@@ -6,6 +6,7 @@ const spamCmd = new BotCommand({
     name: 'spam',
     description: 'Send a message multiple times',
     executor: executor,
+    requireMod: true,
     args: [
         {
             name: "times",
