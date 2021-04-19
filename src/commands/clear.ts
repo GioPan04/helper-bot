@@ -14,6 +14,11 @@ const clearCmd = new BotCommand({
 async function executor(msg:Message, args: string[]) {
     const msgToClear = parseInt(args[0]);
 
+    if(msgToClear < 1) {
+        msg.channel.send("You can't delete less than 1 message");
+        return;
+    }
+
     if(msgToClear > 100) {
         msg.channel.send("You can't delete more than 100 messages!");
         return;
