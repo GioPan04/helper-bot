@@ -1,19 +1,23 @@
-import { Message } from 'discord.js';
+import { Message, TextChannel, VoiceChannel, VoiceConnection } from 'discord.js';
 import { BotCommand } from '../models/Command';
 import ytdl, {validateURL} from "ytdl-core";
 import search from '../utils/ytsearcher';
 
+
 const playCmd = new BotCommand({
     name: 'play',
-    description: 'Play a music from YouTube',
+    description: 'Play a video from YouTube',
     executor: executor,
     args: [
         {
-            name: "Url",
+            name: "Url or title",
             required: true,
         }
     ]
 });
+
+// Urls in queue
+let queue: string[] = [];
 
 async function executor(msg: Message, args: string[]) {
     if(msg.member?.voice.channel == null) {
@@ -34,13 +38,36 @@ async function executor(msg: Message, args: string[]) {
 
         searchingVideoMsg.edit(`Found \`${videos[0].title}\``);
         url = videos[0].link;
-    } 
+    }
 
-    const voice = await msg.member.voice.channel.join();
-    const stream = voice.play(ytdl(url, {filter: 'audioonly'}))
-    stream.on('finish', () => voice.disconnect());
+    queue.push(url);
+
+    if(queue.length == 1) {
+        const voice = await msg.member.voice.channel.join();
+        play(voice, msg.channel as TextChannel);
+    } else {
+        await msg.channel.send('Video added to the queue');
+    }
     
-    msg.channel.send("Playing on voice channel");
+}
+
+async function play(voice: VoiceConnection, textCh: TextChannel) {
+    if(queue.length == 0) return;
+
+    const url = queue[0];
+    await textCh.send(`Now playing ${url}`);
+    
+    const stream = voice.play(ytdl(url, {filter: 'audioonly'}));
+
+    
+    stream.on('finish', () => {
+        if(queue.length <= 1) {
+            voice.disconnect();
+        } else {
+            queue.shift();
+            play(voice, textCh);
+        }
+    });
 }
 
 export default playCmd;
